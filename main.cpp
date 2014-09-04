@@ -18,7 +18,7 @@
 /*
 	Select your prac algorithm here
 
-	Choises:
+	Choices:
 	typedef CEAController PRAC_ALGORITHM; //Evolutionary Algorithm
 	typedef CBackPropController PRAC_ALGORITHM; //Backpropagation Algorithm
 	typedef CQLearningController PRAC_ALGORITHM; //Q-Learning Algorithm

@@ -25,6 +25,14 @@ protected:
 	void propagateErrorBackward(const double * const desiredOutput); //you may modify this to do std::vector<double> if you want
 	double meanSquaredError(const double * const desiredOutput); //you may modify this to do std::vector<double> if you want
 public:
+	//variables
+	uint m_inputLayerSize;
+	uint m_hiddenLayerSize;
+	uint m_outputLayerSize; //added varibales
+	double m_lRate;
+	double m_mse_cutoff;
+
+	//methods
 	CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff);
 	void initWeights();
 	void train(const double ** const inputs,const double ** const outputs, uint trainingSetSize); //you may modify this to do std::vector<std::vector<double> > or do boost multiarray or something else if you want

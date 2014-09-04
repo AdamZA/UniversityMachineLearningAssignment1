@@ -21,8 +21,8 @@
  for the weights of both input->hidden and hidden->output layers, as well as the input, hidden
  and output layers.
 */
-CNeuralNet::CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff)
-	//you probably want to use an initializer list here
+CNeuralNet::CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff) 
+: m_inputLayerSize(inputLayerSize), m_hiddenLayerSize(hiddenLayerSize), m_outputLayerSize(outputLayerSize), m_lRate(lRate), m_mse_cutoff(mse_cutoff) //intializer list
 {
 	//TODO
 }
