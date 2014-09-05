@@ -9,11 +9,44 @@
 #define CNEURALNET_H_
 #include <vector>
 #include <cmath>
+#include "utils.h"
 #include <algorithm>
 #include <stdlib.h>
 #include <cstring>
 #include <stdio.h>
 #include <stdint.h>
+
+//Since different neurons take a different number of inputs, a struct to contain neurons was deemed to be best
+struct SNeuron
+{
+	//the number of inputs into the neuron 
+	int	m_iNumInputs;
+
+	//the weights for each input 
+	std::vector<double>	m_vecWeight;
+
+	//the activation of this neuron 
+	double	m_dActivation;
+
+	//the error value 
+	double	m_dError;
+
+	//constructor
+	SNeuron(int NumInputs);
+};
+
+struct SNeuronLayer
+{
+	//the number of neurons in this layer 
+	int m_iNumNeurons;
+
+	//the layer of neurons 
+	std::vector<SNeuron>	m_vecNeurons;
+
+	//constructor
+	SNeuronLayer(int NumNeurons,
+		int NumInputsPerNeuron);
+};
 
 typedef unsigned int uint;
 class CBasicEA; //forward declare EA class, which will have the power to access weight vectors
@@ -28,11 +61,16 @@ public:
 	//variables
 	uint m_inputLayerSize;
 	uint m_hiddenLayerSize;
-	uint m_outputLayerSize; //added varibales
-	double m_lRate;
+	uint m_outputLayerSize; 
+	double m_lRate;	//learning rate for back propogation
 	double m_mse_cutoff;
 
+	//vectors for the network
+	std::vector<SNeuronLayer> m_vecLayer;
+	std::vector<double> _inputs;
+
 	//methods
+	double Sigmoid(double netinput);
 	CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff);
 	void initWeights();
 	void train(const double ** const inputs,const double ** const outputs, uint trainingSetSize); //you may modify this to do std::vector<std::vector<double> > or do boost multiarray or something else if you want

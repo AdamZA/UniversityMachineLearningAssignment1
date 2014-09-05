@@ -1,5 +1,6 @@
-﻿Build started 2014/09/04 03:28:07 PM.
+﻿Build started 2014/09/04 08:47:12 PM.
      1>Project "C:\Users\Adam\Documents\ML01\smart sweepers.vcxproj" on node 2 (Rebuild target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\adam\documents\ml01\debug\cdiscminesweeper.obj' because it is being used by another process.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt C2DMatrix.cpp CBackPropController.cpp CBasicEA.cpp CCollisionObject.cpp CContCollisionObject.cpp CContController.cpp CController.cpp CContMinesweeper.cpp CDiscCollisionObject.cpp CDiscController.cpp CDiscMinesweeper.cpp CEAController.cpp CNeuralNet.cpp CParams.cpp CQLearningController.cpp CTimer.cpp main.cpp CMinesweeper.cpp utils.cpp
          utils.cpp
@@ -18,6 +19,7 @@
      1>c:\users\adam\documents\ml01\cqlearningcontroller.cpp(76): warning C4018: '<' : signed/unsigned mismatch
          CParams.cpp
          CNeuralNet.cpp
+     1>c:\users\adam\documents\ml01\cneuralnet.cpp(82): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
          CEAController.cpp
      1>c:\users\adam\documents\ml01\c2dmatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\adam\documents\ml01\c2dmatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
@@ -108,4 +110,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.61
+Time Elapsed 00:00:10.98
