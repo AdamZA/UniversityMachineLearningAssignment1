@@ -19,17 +19,20 @@
 //Since different neurons take a different number of inputs, a struct to contain neurons was deemed to be best
 struct SNeuron
 {
-	//the number of inputs into the neuron 
+	//the number of inputs into each neuron 
 	int	m_iNumInputs;
 
 	//the weights for each input 
 	std::vector<double>	m_vecWeight;
 
+	//The most recent weight update
+	std::vector<double> m_prevWeight;
+
 	//the activation of this neuron 
-	double	m_dActivation;
+	double	m_Activation;
 
 	//the error value 
-	double	m_dError;
+	double	m_Error;
 
 	//constructor
 	SNeuron(int NumInputs);
@@ -44,8 +47,7 @@ struct SNeuronLayer
 	std::vector<SNeuron>	m_vecNeurons;
 
 	//constructor
-	SNeuronLayer(int NumNeurons,
-		int NumInputsPerNeuron);
+	SNeuronLayer(int NumNeurons, int NumInputsPerNeuron);
 };
 
 typedef unsigned int uint;
@@ -68,6 +70,8 @@ public:
 	//vectors for the network
 	std::vector<SNeuronLayer> m_vecLayer;
 	std::vector<double> _inputs;
+	std::vector<double> _expOutputs;
+	std::vector<double> _outputActivation;
 
 	//methods
 	double Sigmoid(double netinput);

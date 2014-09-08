@@ -1,23 +1,13 @@
-/*
-                                                                           
-   (               )                                        )              
- ( )\     )     ( /(       (                  (  (     ) ( /((             
- )((_) ( /(  (  )\())`  )  )(   (  `  )   (   )\))( ( /( )\())\  (   (     
-((_)_  )(_)) )\((_)\ /(/( (()\  )\ /(/(   )\ ((_))\ )(_)|_))((_) )\  )\ )  
- | _ )((_)_ ((_) |(_|(_)_\ ((_)((_|(_)_\ ((_) (()(_|(_)_| |_ (_)((_)_(_/(  
- | _ \/ _` / _|| / /| '_ \) '_/ _ \ '_ \/ _` |/ _` |/ _` |  _|| / _ \ ' \)) 
- |___/\__,_\__||_\_\| .__/|_| \___/ .__/\__,_|\__, |\__,_|\__||_\___/_||_|  
-                    |_|           |_|         |___/                         
+//Student:			Adam Sundstrom
+//Student Number:	SNDADA001
+//Assignment:		Back Propogation
 
- For more information on back-propagation refer to:
- Chapter 18 of Russel and Norvig (2010).
- Artificial Intelligence - A Modern Approach.
- */
-
+//Includes
 #include "CNeuralNet.h"
 #include <iostream>
 
-//Struct for a layer
+//Struct to represent a layer of neurons
+//Takes in the number of neurons, and the number of imports that each neuron will receive (to construct the neurons)
 SNeuronLayer::SNeuronLayer(int NumNeurons,
 	int NumInputsPerNeuron) : m_iNumNeurons(NumNeurons)
 {
@@ -26,50 +16,49 @@ SNeuronLayer::SNeuronLayer(int NumNeurons,
 		m_vecNeurons.push_back(SNeuron(NumInputsPerNeuron));
 }
 
-//Struct for a Neuron
-SNeuron::SNeuron(int NumInputs) : m_iNumInputs(NumInputs + 1),
-m_dActivation(0),
-m_dError(0)
-
+//Struct to represent an individual neuron
+//Takes in the number of inputs that the neuron will receive
+SNeuron::SNeuron(int NumInputs) : m_iNumInputs(NumInputs), m_Activation(0), m_Error(0)
 {
-	//we need an additional weight for the bias hence the +1   
-	for (int i = 0; i<NumInputs + 1; ++i)
+	//initialize the weights
+	for (int i = 0; i<NumInputs; ++i)
 	{
-		//set up the weights with an initial random value   
-		m_vecWeight.push_back(0);	//initialized to 0 since they are overwritten later
+		m_vecWeight.push_back(0);	//initialized weights to 0 since they are overwritten later
+		m_prevWeight.push_back(0);
 	}
 }
 
 
-/**
- The constructor of the neural network. This constructor will allocate memory
- for the weights of both input->hidden and hidden->output layers, as well as the input, hidden
- and output layers.
-*/
+ //The constructor of the neural network. This constructor will allocate memory
+ //for the weights of both input->hidden and hidden->output layers, as well as the input, hidden
+ //and output layers.
+
 CNeuralNet::CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff) 
 : m_inputLayerSize(inputLayerSize), m_hiddenLayerSize(hiddenLayerSize), m_outputLayerSize(outputLayerSize), m_lRate(lRate), m_mse_cutoff(mse_cutoff) //intializer list
 {
+	//initialize vectors for the inputs and the expected outputs
 	std::vector<double> _inputs(m_inputLayerSize);
+	std::vector<double> _expOutputs(m_outputLayerSize);
+	std::vector<double> _outputActivation(m_outputLayerSize);
+
+	//initialize the two neuron layers
 	SNeuronLayer hiddenLayer(m_hiddenLayerSize, m_inputLayerSize);
 	SNeuronLayer outputLayer(m_outputLayerSize, m_hiddenLayerSize);
 
+	//push the layers onto a vector
 	m_vecLayer.push_back(hiddenLayer);
 	m_vecLayer.push_back(outputLayer);
 
+	//initialize random weights for neurons
 	initWeights();
 }
 
-/**
- The destructor of the class. All allocated memory will be released here
-*/
-CNeuralNet::~CNeuralNet() //No pointers to be released just yet
+ //The destructor of the class. All allocated memory will be released here
+CNeuralNet::~CNeuralNet() 
 {
-	//TODO
 }
-/**
 
- Method to initialize the both layers of weights to random numbers
-*/
+//Method to initialize the both layers of weights to random numbers
 void CNeuralNet::initWeights()
 {
 	for (int i = 0; i < 2; ++i) //iterate through the two layers (hidden and output layers)
@@ -77,8 +66,8 @@ void CNeuralNet::initWeights()
 		for (int j = 0; j < m_vecLayer[i].m_iNumNeurons; ++j) //iterate through the neurons in each layer
 		{
 			for (int k = 0; k < m_vecLayer[i].m_vecNeurons[j].m_iNumInputs; ++k) //iterate through each input weight going into each neuron
-			{
-				//float randWeight = -1 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2))); //generate a random float between -1 and 1
+			{ 
+				//generate a random float between -1 and 1
 				float randWeight = RandomClamped();
 				m_vecLayer[i].m_vecNeurons[j].m_vecWeight[k] = randWeight;	//assign the weight
 			}
@@ -86,41 +75,41 @@ void CNeuralNet::initWeights()
 	}
 }
 
+//Basic Sigmoid function
 double CNeuralNet::Sigmoid(double netinput)
 {
 	return netinput / (1 + abs(netinput));
 }
 
 
-/**
- This is the forward feeding part of back propagation.
- 1. This should take the input and copy the memory (use memcpy / std::copy)
- to the allocated _input array.
- 2. Compute the output of at the hidden layer nodes 
- (each _hidden layer node = sigmoid (sum( _weights_h_i * _inputs)) //assume the network is completely connected
- 3. Repeat step 2, but this time compute the output at the output layer
-*/
+
+//This is the forward feeding part of back propagation.
+//1. This should take the input and copy the memory (use memcpy / std::copy)
+//to the allocated _input array.
+//2. Compute the output of at the hidden layer nodes 
+//(each _hidden layer node = sigmoid (sum( _weights_h_i * _inputs)) //assume the network is completely connected
+//3. Repeat step 2, but this time compute the output at the output layer
+
 void CNeuralNet::feedForward(const double * const inputs) 
 {
-	memcpy(&_inputs, inputs, sizeof(inputs)); //god I hope this works
+	memcpy(&_inputs, inputs, sizeof(inputs)); //copy the address of inputs to the vector
 	
-	int cWeight = 0; 
+	int cWeight = 0; //variable to store the slot of the corresponding weights
 
-	vector<double> outputs;
+	vector<double> outputs; //store the result of the outputs from each layer
 
-	//For each layer...   
+	//For both layers (hidden and output)  
 	for (int i = 0; i < 2; ++i)
 	{
 
-		if (i > 0)
+		if (i > 0)				//checks which layer you're on
 		{
-			_inputs = outputs;
+			_inputs = outputs;	//sets inputs to outputs if you're past the 'first' layer
 		}
 
 		outputs.clear();
 
-	//for each neuron sum the (inputs * corresponding weights).Throw    
-	//the total at our sigmoid function to get the output.   
+	//iterate through neurons and get the sum of weights * inputs  
 		for (int n = 0; n < m_vecLayer[i].m_iNumNeurons; ++n)
 		{
 			double netinput = 0;
@@ -136,14 +125,16 @@ void CNeuralNet::feedForward(const double * const inputs)
 
 			//The combined activation is first filtered through the sigmoid    
 			//function and a record is kept for each neuron    
-			m_vecLayer[i].m_vecNeurons[n].m_dActivation = Sigmoid(netinput);
+			m_vecLayer[i].m_vecNeurons[n].m_Activation = Sigmoid(netinput);
 
 			//store the outputs from each layer as we generate them.   
-			outputs.push_back(m_vecLayer[i].m_vecNeurons[n].m_dActivation);
+			outputs.push_back(m_vecLayer[i].m_vecNeurons[n].m_Activation);
 
+			//reset the weight index
 			cWeight = 0;
 		}
 	}
+	_outputActivation = outputs; //save what was in the output layer for later reference
 }
 
 /**
@@ -166,7 +157,74 @@ void CNeuralNet::feedForward(const double * const inputs)
 */
 void CNeuralNet::propagateErrorBackward(const double * const desiredOutput)
 {
-	//TODO
+	memcpy(&_expOutputs, desiredOutput, sizeof(desiredOutput)); //copy the outputs to the vector
+
+	double weightShift = 0;
+
+	// Compute error at output layer and adjust the weights
+	for (int i = 0; i < m_outputLayerSize; ++i)
+	{
+		// Calculate the error value, using the gradient descent method
+		// Note: _outputs[i] * (1 - _outputs[i]) represents the simlified sigmoid deritvative function
+		double error = _outputActivation[i] * (1 - _outputActivation[i]) * (desiredOutput[i] - _outputActivation[i]);
+
+		// Keep a record of the error value   
+		m_vecLayer[1].m_vecNeurons[i].m_Error = error;
+
+		// For each neuron (each connection from each neuron to the next layer)
+		// adjust the weights
+		for (int j = 0; j < m_vecLayer[1].m_vecNeurons[i].m_vecWeight.size(); ++j)
+		{
+			//calculate weight update   
+			weightShift = error * m_lRate * m_vecLayer[0].m_vecNeurons[j].m_Activation;
+
+			//calculate the new weight based on the backprop rules and adding in momentum   
+			m_vecLayer[1].m_vecNeurons[i].m_vecWeight[j] += weightShift;
+
+			//keep a record of this weight update   
+			m_vecLayer[1].m_vecNeurons[i].m_prevWeight[j] = weightShift;
+		}
+
+	}
+
+	// Compute error at hidden layer
+	for (int i = 0; i < m_vecLayer[0].m_vecNeurons.size(); ++i)
+	{
+		double error = 0;
+
+		//---------------------------------------------------------------------------------
+		//	Calculating the error value according to: 
+		//         sigmoid_d(hidden) * sum(weights_o_h) * (diff)
+		//---------------------------------------------------------------------------------
+
+		// Iterate through neurons in the output layer and sum the error * weights   
+		for (int j = 0; j < m_vecLayer[1].m_vecNeurons.size(); ++j)
+		{
+			error += m_vecLayer[1].m_vecNeurons[j].m_Error * m_vecLayer[1].m_vecNeurons[j].m_vecWeight[i];
+		}
+
+		// Calculate the error   
+		error *= m_vecLayer[0].m_vecNeurons[i].m_Error * (1 - m_vecLayer[0].m_vecNeurons[i].m_Error);
+
+		m_vecLayer[0].m_vecNeurons[i].m_Error = error;
+		//---------------------------------------------------------------------------------
+
+		// For each weight in this neuron calculate the new weight based   
+		// on the error signal and the learning rate   
+		for (int k = 0; k < m_inputLayerSize; ++k)
+		{
+			weightShift = error * m_lRate * _expOutputs[k];
+
+			//calculate the new weight based on the backprop rules and adding in momentum   
+			m_vecLayer[0].m_vecNeurons[i].m_vecWeight[k] += weightShift;
+				//keep a record of this weight update   
+			m_vecLayer[0].m_vecNeurons[i].m_prevWeight[k] = weightShift;
+
+		}
+
+
+	}
+
 }
 /**
 This computes the mean squared error
@@ -199,7 +257,7 @@ Once our network is trained we can simply feed it some input though the feed for
 method and take the maximum value as the classification
 */
 uint CNeuralNet::classify(const double * const input){
-	return 1; //TODO: fix me
+	return 0; //TODO: fix me
 }
 /**
 Gets the output at the specified index
