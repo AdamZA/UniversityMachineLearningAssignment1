@@ -34,8 +34,8 @@ void CBackPropController::InitializeLearningAlgorithm(void)
 	CContController::InitializeLearningAlgorithm(); //call the parent's learning algorithm initialization
 	
 	//read training data from file (this is pretty basic text file reading, but at least the files can be inspected and modified if necessary)
-	double ** inp;
-	double ** out;
+	std::vector<std::vector<double>>  inp;
+	std::vector<std::vector<double>>  out;
 	uint no_training_samples;
 	uint dist_effect_cutoff;
 	uint no_inputs;
@@ -52,32 +52,38 @@ void CBackPropController::InitializeLearningAlgorithm(void)
 		f >> no_out;
 		f >> learning_rate;
 		f >> mse_cutoff;
-		inp = new double*[no_training_samples];
-		out = new double*[no_training_samples];
-		for (uint32_t i = 0; i < no_training_samples; ++i){
-			inp[i] = new double[no_inputs];
-			out[i] = new double[no_out];
-		}
-		for (uint32_t i = 0; i < no_training_samples; ++i){
-			printf("Reading file ... %f%%\n",i / float(no_training_samples)*100.0);
-			for (uint32_t inp_s = 0; inp_s < no_inputs; ++inp_s){
-				f >> inp[i][inp_s];
+		cout << "Loading..." << endl;
+		for (uint32_t i = 0; i < no_training_samples; ++i)
+		{
+			//stopped printing the loading progress
+			//printf("Reading file ... %f%%\n",i / float(no_training_samples)*100.0);
+
+			std::vector<double> inputHolder;
+			for (uint32_t inp_s = 0; inp_s < no_inputs; ++inp_s)
+			{
+				double holder;
+				f >> holder;
+				
+				inputHolder.push_back(holder);
 			}
-			for (uint32_t out_s = 0; out_s < no_out; ++out_s){
-				f >> out[i][out_s];
+			inp.push_back(inputHolder);
+
+			inputHolder.clear();
+			for (uint32_t out_s = 0; out_s < no_out; ++out_s)
+			{
+				double holder;
+				f >> holder;
+
+				inputHolder.push_back(holder);
 			}
+			out.push_back(inputHolder);
 		}
 		f.close();
 	//init the neural net and train it
+		cout << "Load complete. Creating neural network" << endl;
 		_neuralnet = new CNeuralNet(no_inputs,no_hidden,no_out,learning_rate,mse_cutoff);
-		_neuralnet->train((const double **)inp,(const double **)out,no_training_samples);
-	//release the memory we alloced
-		for (uint32_t i = 0; i < no_training_samples; ++i){
-			delete[] inp[i];
-			delete[] out[i];
-		}
-		delete[] inp;
-		delete[] out;
+		cout << "Training..." << endl;
+		_neuralnet->train(inp,out,no_training_samples);
 
 
 }
@@ -110,7 +116,8 @@ bool CBackPropController::Update(void)
 		double dist_supermine = Vec2DLength(m_vecObjects[(*s)->getClosestSupermine()]->getPosition() - (*s)->Position());
 		//cheat a bit here... passing the distance into the neural net as well increases the search space dramatrically... :
 		double dots[2] = { dot_mine, (dist_rock < 50 || dist_supermine < 50) ? ((dist_rock < dist_supermine) ? dot_rock : dot_supermine) : -1}; 
-		if (_neuralnet->classify((const double*)&dots) == 0){ // turn towards the mine
+		std::vector<double> dotsVec(dots, dots + 2);
+		if (_neuralnet->classify(dotsVec) == 0){ // turn towards the mine
 			SPoint pt(m_vecObjects[(*s)->getClosestMine()]->getPosition().x,
 					  m_vecObjects[(*s)->getClosestMine()]->getPosition().y); 
 			(*s)->turn(pt,1);

@@ -1,0 +1,123 @@
+﻿Build started 2014/09/08 10:13:13 PM.
+     1>Project "C:\Users\Adam\Documents\ML01\smart sweepers.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release\\" /Fd".\Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt C2DMatrix.cpp CBackPropController.cpp CBasicEA.cpp CCollisionObject.cpp CContCollisionObject.cpp CContController.cpp CController.cpp CContMinesweeper.cpp CDiscCollisionObject.cpp CDiscController.cpp CDiscMinesweeper.cpp CEAController.cpp CNeuralNet.cpp CParams.cpp CQLearningController.cpp CTimer.cpp main.cpp CMinesweeper.cpp utils.cpp
+         C2DMatrix.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         CBackPropController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CBackPropController.cpp(40): warning C4101: 'dist_effect_cutoff' : unreferenced local variable
+     1>CBackPropController.cpp(122): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>CBackPropController.cpp(127): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>CBackPropController.cpp(131): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         CBasicEA.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         CCollisionObject.cpp
+         CContCollisionObject.cpp
+         CContController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CContController.cpp(140): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>CContController.cpp(206): warning C4018: '<' : signed/unsigned mismatch
+         CController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CController.cpp(73): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>CController.cpp(76): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>CController.cpp(79): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>CController.cpp(92): warning C4018: '<' : signed/unsigned mismatch
+     1>CController.cpp(94): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>CController.cpp(94): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>CController.cpp(106): warning C4018: '<' : signed/unsigned mismatch
+         CContMinesweeper.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CContMinesweeper.cpp(101): warning C4018: '<' : signed/unsigned mismatch
+         CDiscCollisionObject.cpp
+         CDiscController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CDiscController.cpp(95): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>CDiscController.cpp(139): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>CDiscController.cpp(205): warning C4018: '<' : signed/unsigned mismatch
+         CDiscMinesweeper.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CDiscMinesweeper.cpp(75): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>CDiscMinesweeper.cpp(76): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>CDiscMinesweeper.cpp(103): warning C4018: '<' : signed/unsigned mismatch
+         CEAController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CEAController.cpp(66): warning C4018: '<' : signed/unsigned mismatch
+         CNeuralNet.cpp
+     1>CNeuralNet.cpp(73): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>CNeuralNet.cpp(169): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(180): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(195): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(205): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(218): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(242): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(244): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CNeuralNet.cpp(265): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(298): warning C4018: '<' : signed/unsigned mismatch
+     1>CNeuralNet.cpp(302): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CNeuralNet.cpp(303): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>CNeuralNet.cpp(307): warning C4244: 'return' : conversion from 'float' to 'uint', possible loss of data
+         CParams.cpp
+         CQLearningController.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CQLearningController.cpp(61): warning C4018: '<' : signed/unsigned mismatch
+     1>CQLearningController.cpp(76): warning C4018: '<' : signed/unsigned mismatch
+         CTimer.cpp
+         main.cpp
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(102): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(108): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\adam\documents\ml01\C2DMatrix.h(110): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(293): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         CMinesweeper.cpp
+         utils.cpp
+         Generating Code...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D NDEBUG /D _VC80_UPGRADE=0x0600 /l"0x0809" /nologo /fo".\Release\Script1.res" Script1.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\smart sweepers.exe" /INCREMENTAL:NO /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\Release\smart sweepers.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\smart sweepers.lib" /MACHINE:X86 /SAFESEH .\Release\Script1.res
+         .\Release\C2DMatrix.obj
+         .\Release\CBackPropController.obj
+         .\Release\CBasicEA.obj
+         .\Release\CCollisionObject.obj
+         .\Release\CContCollisionObject.obj
+         .\Release\CContController.obj
+         .\Release\CController.obj
+         .\Release\CContMinesweeper.obj
+         .\Release\CDiscCollisionObject.obj
+         .\Release\CDiscController.obj
+         .\Release\CDiscMinesweeper.obj
+         .\Release\CEAController.obj
+         .\Release\CNeuralNet.obj
+         .\Release\CParams.obj
+         .\Release\CQLearningController.obj
+         .\Release\CTimer.obj
+         .\Release\main.obj
+         .\Release\CMinesweeper.obj
+         .\Release\utils.obj
+         smart sweepers.vcxproj -> C:\Users\Adam\Documents\ML01\.\Release\smart sweepers.exe
+     1>Done Building Project "C:\Users\Adam\Documents\ML01\smart sweepers.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.82

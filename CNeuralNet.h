@@ -56,9 +56,9 @@ class CBasicEA; //forward declare EA class, which will have the power to access 
 class CNeuralNet {
 	friend class CBasicEA;
 protected:
-	void feedForward(const double * const inputs); //you may modify this to do std::vector<double> if you want
-	void propagateErrorBackward(const double * const desiredOutput); //you may modify this to do std::vector<double> if you want
-	double meanSquaredError(const double * const desiredOutput); //you may modify this to do std::vector<double> if you want
+	void feedForward(std::vector<double> inputs); 
+	void propagateErrorBackward(std::vector<double> desiredOutput); 
+	double meanSquaredError(std::vector<double> desiredOutput); 
 public:
 	//variables
 	uint m_inputLayerSize;
@@ -66,19 +66,20 @@ public:
 	uint m_outputLayerSize; 
 	double m_lRate;	//learning rate for back propogation
 	double m_mse_cutoff;
+	double m_MSE = 1;
 
 	//vectors for the network
 	std::vector<SNeuronLayer> m_vecLayer;
-	std::vector<double> _inputs;
-	std::vector<double> _expOutputs;
+	//std::vector<double> _inputs;
+	//std::vector<double> _expOutputs;
 	std::vector<double> _outputActivation;
 
 	//methods
 	double Sigmoid(double netinput);
 	CNeuralNet(uint inputLayerSize, uint hiddenLayerSize, uint outputLayerSize, double lRate, double mse_cutoff);
 	void initWeights();
-	void train(const double ** const inputs,const double ** const outputs, uint trainingSetSize); //you may modify this to do std::vector<std::vector<double> > or do boost multiarray or something else if you want
-	uint classify(const double * const input); //you may modify this to do std::vector<double> if you want
+	void train(std::vector<std::vector<double>> inputs, std::vector<std::vector<double>> outputs, uint trainingSetSize); //you may modify this to do std::vector<std::vector<double> > or do boost multiarray or something else if you want
+	uint classify(std::vector<double> desiredOutput); //you may modify this to do std::vector<double> if you want
 	double getOutput(uint index) const;
 	virtual ~CNeuralNet();
 };
